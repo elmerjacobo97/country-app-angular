@@ -1,0 +1,53 @@
+<ng-template #loading>
+  <div class="flex justify-center">
+    <span class="btn loading">Espere por favor</span>
+  </div>
+</ng-template>
+
+<div *ngIf="country; else loading" class="card w-full sm:w-96 mx-auto bg-base-100 shadow-2xl border border-gray-800">
+  <div class="card-body">
+    <figure>
+      <img [src]="country.flags.svg" [alt]="country.name.common">
+    </figure>
+    <div class="flex items-center justify-between">
+      <div class="space-y-0.5">
+        <h2 class="card-title">{{ country.name.common }}</h2>
+        <p>
+          Oficial:
+          <span class="badge badge-lg bg-gray-800">{{ country.name.official.length <= 30
+            ? country.name.official : (country.name.official.substring(0, 30) + '...') }}
+          </span>
+        </p>
+        <p>
+          Capital:
+          <span class="badge badge-lg bg-gray-800">{{ country.capital || 'No capital' }}</span>
+        </p>
+        <p>
+          Población:
+          <span class="badge badge-lg bg-gray-800">{{ country.population | number }}</span>
+        </p>
+        <p>
+          Código:
+          <span class="badge badge-lg bg-gray-800">{{ country.cca3 }}</span>
+        </p>
+      </div>
+    </div>
+    <div>
+      <h2 class="card-title mb-1">Traducciones</h2>
+      <div class="grid grid-cols-2 gap-2">
+        <span class="badge badge-accent">{{ country.translations['ara'].common }}</span>
+        <span class="badge badge-accent">{{ country.translations['fra'].common }}</span>
+        <span class="badge badge-accent">{{ country.translations['ita'].common }}</span>
+        <span class="badge badge-accent">{{ country.translations['jpn'].common }}</span>
+        <span class="badge badge-accent">{{ country.translations['spa'].common }}</span>
+        <span class="badge badge-accent">{{ country.translations['tur'].common }}</span>
+      </div>
+    </div>
+    <div class="mt-5 card-actions flex justify-end">
+      <a
+        [href]="country.maps.googleMaps"
+        target="_blank" rel="noreferrer"
+        class="btn btn-primary">Ver mapa</a>
+    </div>
+  </div>
+</div>

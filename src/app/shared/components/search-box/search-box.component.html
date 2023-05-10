@@ -1,0 +1,11 @@
+<input
+  type="text"
+  class="input input-bordered input-md w-full"
+  autofocus
+  [placeholder]="placeholder"
+  [value]="initialValue"
+  (keyup)="onKeyPress(txtInput.value)"
+  #txtInput/>
+
+<!-- #textInput referencia local -->
+<!--(keyup.enter)="emitValue(txtInput.value)"-->

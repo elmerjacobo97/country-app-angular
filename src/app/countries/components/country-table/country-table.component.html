@@ -1,0 +1,61 @@
+<div *ngIf="countries.length === 0; else table" class="alert alert-warning shadow-lg xl:mx-auto xl:w-96">
+  <div>
+    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none"
+         viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+    </svg>
+    <span>No hay {{ title }} que mostrar</span>
+  </div>
+</div>
+
+<ng-template #table>
+  <div class="overflow-x-auto w-auto">
+    <table class="table w-full">
+      <!-- head -->
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Bandera</th>
+        <th>Nombre</th>
+        <th>Población</th>
+        <th>Acciones</th>
+      </tr>
+      </thead>
+      <tbody>
+      <!-- row 1 -->
+      <tr *ngFor="let country of countries; let i = index" class="hover animate__animated animate__fadeIn">
+        <td>
+          {{ i + 1 }}
+        </td>
+        <td>
+          <div class="flex items-center space-x-3">
+            <div class="avatar">
+              <div class="mask mask-squircle w-12 h-12">
+                <img [src]="country.flags.svg" [alt]="country.name.common"/>
+              </div>
+            </div>
+            <div>
+              <div class="font-bold">
+                {{ country.name.official.length <= 15 ? country.name.official : (country.name.official.substring(0, 15) + '...') }}
+              </div>
+              <div class="text-sm opacity-50">{{ country.capital }}</div>
+            </div>
+          </div>
+        </td>
+        <td>
+          {{ country.capital }} - {{ country.name.common }}
+          <span class="badge badge-ghost badge-sm">{{ country.flag }}</span>
+        </td>
+        <td>{{ country.population  | number }}</td>
+        <td class="flex flex-col space-y-1">
+          <a [routerLink]="['/countries/by', country.cca3]" class="btn btn-ghost btn-xs">Ver más</a>
+          <a class="btn btn-ghost btn-xs"
+             [href]="country.maps.googleMaps"
+             target="_blank"
+             rel="noreferrer">Ver mapa</a>
+        </td>
+      </tr>
+    </table>
+  </div>
+</ng-template>
